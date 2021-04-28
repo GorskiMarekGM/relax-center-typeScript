@@ -21,6 +21,8 @@ var Card = /** @class */ (function () {
          * @return {Zone}
          */
         this.getZone = function () { return _this.currentZone; };
+        this.useZone = function () {
+        };
         this.rating = rating;
         this.credits = credits;
         this.centre = centre;

@@ -8,8 +8,10 @@
  */
 
 import { Card } from "./Card";
+import { Door } from "./Door";
+import { RelaxCentre } from "./RelaxCentre";
 
-export class Zone {
+export class Zone implements RelaxCentre {
     name:string;
     rating:number;
     capacity:number;
@@ -22,4 +24,16 @@ export class Zone {
         this.capacity = capacity;
         this.cards = cards;
     }
+    getCentreName: () => string;
+    addZone: (zone: Zone) => void;
+    addCard: (card: Card) => void;
+    addDoor: (door: Door) => void;
+    findZone: (zoneName: string) => Zone;
+    findCard: (cardId: number) => Zone;
+    move: (card: Card, doorNumber: number) => string;
+    canMove: (card: Card, door: Door) => boolean;
+    cardsInZone: (zone: Zone) => string;
+    cardsInAllZones: () => string;
+    moveToOutside: (card: Card) => void;
+    moveAllToOutside: () => void;
 }

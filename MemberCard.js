@@ -15,10 +15,11 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
-exports.LoyaltyCard = void 0;
+exports.MemberCard = void 0;
 var Card_1 = require("./Card");
-var LoyaltyCard = /** @class */ (function (_super) {
-    __extends(LoyaltyCard, _super);
+var MemberCard = /** @class */ (function (_super) {
+    __extends(MemberCard, _super);
+    // private cardId: number;
     /**
      * Constructor for a Member's card
      * @param {string} memberName - member's name
@@ -27,10 +28,8 @@ var LoyaltyCard = /** @class */ (function (_super) {
      * @param {string} centre - centre at which a member is registered
      * @param {string} type - type of the card
      */
-    function LoyaltyCard(memberName, rating, 
-    // adding 30 creadits to an account for begining 
-    credits, centre, type) {
-        var _this = _super.call(this, rating, credits, centre, memberName, type = "Loyalty") || this;
+    function MemberCard(memberName, rating, credits, centre, type) {
+        var _this = _super.call(this, rating, credits, centre, memberName, type = "Member") || this;
         /**
          * @return {string} member's name
          */
@@ -61,9 +60,7 @@ var LoyaltyCard = /** @class */ (function (_super) {
          * decrements the credits to show that a zone has been use
          */
         _this.useZone = function () {
-            _this.credits -= 3;
-            // it may not work???????????????????????????????????????????????
-            LoyaltyCard.loyaltyPoints += 2;
+            _this.credits -= 4;
         };
         /**
          * @return {number} number of credits on the card
@@ -91,11 +88,10 @@ var LoyaltyCard = /** @class */ (function (_super) {
                 _this.centre +
                 "\n";
         };
-        _this.cardId = LoyaltyCard.currentId++;
+        _this.cardId = MemberCard.currentId++;
         return _this;
     }
-    LoyaltyCard.currentId = 2000;
-    LoyaltyCard.loyaltyPoints = 20;
-    return LoyaltyCard;
+    MemberCard.currentId = 1000;
+    return MemberCard;
 }(Card_1.Card));
-exports.LoyaltyCard = LoyaltyCard;
+exports.MemberCard = MemberCard;

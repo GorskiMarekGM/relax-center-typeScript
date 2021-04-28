@@ -1,9 +1,11 @@
+import { Door } from "./Door";
+import { RelaxCentre } from "./RelaxCentre";
 import { Zone } from "./Zone";
 
 /**
  * A card is used to move through a door.
  */
-export class Card {
+export class Card implements RelaxCentre {
     protected cardId: number;
     protected memberName:string;
     protected type:string;
@@ -22,6 +24,18 @@ export class Card {
         this.memberName = memberName;
         this.type = type;
     }
+  getCentreName: () => string;
+  addZone: (zone: Zone) => void;
+  addCard: (card: Card) => void;
+  addDoor: (door: Door) => void;
+  findZone: (zoneName: string) => Zone;
+  findCard: (cardId: number) => Zone;
+  move: (card: Card, doorNumber: number) => string;
+  canMove: (card: Card, door: Door) => boolean;
+  cardsInZone: (zone: Zone) => string;
+  cardsInAllZones: () => string;
+  moveToOutside: (card: Card) => void;
+  moveAllToOutside: () => void;
 
     
     //public getLoyaltyCard = (): LoyaltyCard => this.getType();
@@ -46,7 +60,8 @@ export class Card {
         this.currentZone = value;
     }​​​​​​​​
 
-    // public useZone = (): void => {
-    // };
+    useZone = (): void => {
+      
+    };
 
 }

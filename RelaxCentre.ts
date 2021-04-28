@@ -9,7 +9,7 @@ import { Zone } from "./Zone";
  * have a rating equal or higher than the zone.
  *
  **/
-interface RelaxCentre {
+export interface RelaxCentre {
   /**
    * @return {string} - name of the centre
    **/

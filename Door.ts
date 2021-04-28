@@ -10,7 +10,7 @@ import { Zone } from "./Zone";
  * the destination zone
  *
  */
-export class Door implements RelaxCentre {
+export class Door {
     doorId:number;
     destination:Zone;
 
@@ -18,19 +18,6 @@ export class Door implements RelaxCentre {
         this.doorId = doorId;
         this.destination = destination;
     }
-    
-    getCentreName: () => string;
-    addZone: (zone: Zone) => void;
-    addCard: (card: Card) => void;
-    addDoor: (door: Door) => void;
-    findZone: (zoneName: string) => Zone;
-    findCard: (cardId: number) => Zone;
-    move: (card: Card, doorNumber: number) => string;
-    canMove: (card: Card, door: Door) => boolean;
-    cardsInZone: (zone: Zone) => string;
-    cardsInAllZones: () => string;
-    moveToOutside: (card: Card) => void;
-    moveAllToOutside: () => void;
 
     // changeZone(card : Card){
     //     //change zone to new, after going through the doors

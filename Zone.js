@@ -11,6 +11,8 @@ exports.__esModule = true;
 exports.Zone = void 0;
 var Zone = /** @class */ (function () {
     function Zone(name, rating, capacity, cards) {
+        var _this = this;
+        this.getCards = function () { return _this.cards; };
         this.name = name;
         this.rating = rating;
         this.capacity = capacity;

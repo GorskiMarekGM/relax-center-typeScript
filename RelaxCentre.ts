@@ -1,3 +1,7 @@
+import { Card } from "./Card";
+import { Door } from "./Door";
+import { Zone } from "./Zone";
+
 /**
  * This interface specifies the methods required to manage a centre.
  * A centre consists of a number of zones which have ratings, and are

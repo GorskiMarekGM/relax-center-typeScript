@@ -24,6 +24,15 @@ var Zone = /** @class */ (function () {
         this.addCardToZone = function (card) {
             _this.cards.push(card);
         };
+        // removeCardFromZone
+        this.removeCardFromZone = function (member) {
+            for (var index = 0; index < _this.cards.length; index++) {
+                var element = _this.cards[index];
+                if (element.getId() == member.getId()) {
+                    _this.cards.splice(index, 1);
+                }
+            }
+        };
         this.name = name;
         this.rating = rating;
         this.capacity = capacity;

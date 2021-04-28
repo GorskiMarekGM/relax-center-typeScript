@@ -20,9 +20,14 @@ var RelaxSite = /** @class */ (function () {
             _this.cards.push(cardToAdd);
         };
         // removeCard
-        // public removeCard = (cardToRemove: Card): void => {
-        //     this.cards.splice(3)
-        // };
+        this.removeCard = function (member) {
+            for (var index = 0; index < cardsArray.length; index++) {
+                var element = cardsArray[index];
+                if (element.getId() == member.getId()) {
+                    cardsArray.splice(index, 1);
+                }
+            }
+        };
         // addDoor
         this.addDoor = function (doorToAdd) {
             _this.doors.push(doorToAdd);
@@ -51,7 +56,6 @@ var RelaxSite = /** @class */ (function () {
             }
             return undefined;
         };
-        // move: (card: Card, doorNumber: number) => string;
         // move is returning string which tells if you moved and where
         // * Returns a string description of the result of a card requesting to move through a door.
         // * If the move can be made, the card information is removed from the source
@@ -62,7 +66,7 @@ var RelaxSite = /** @class */ (function () {
             var door = _this.getDoors(doorNumber);
             var doorDestination = door.getDestination();
             if (_this.canMove(card, door)) {
-                //TODO remove card from zone
+                doorDestination.removeCardFromZone(card);
                 doorDestination.addCardToZone(card);
                 return 'success';
             }
@@ -124,7 +128,7 @@ var RelaxSite = /** @class */ (function () {
             for (var index = 0; index < _this.zones.length; index++) {
                 var singleZone = _this.zones[index];
                 var cards = singleZone.cards;
-                allCards += "Zone name: " + singleZone.name;
+                allCards += "Zone name: " + singleZone.name + "\n\n";
                 for (var index2 = 0; index2 < cards.length; index2++) {
                     var card = cards[index2];
                     allCards += "Card id:" + card.getId() + " memberName:" + card.getName() + " type:" + card.getType() + " rating:" + card.getRating();
@@ -132,6 +136,18 @@ var RelaxSite = /** @class */ (function () {
                 }
             }
             return allCards;
+        };
+        // moveToOutside: (card: Card) => void;
+        this.moveToOutside = function (card) {
+            var out = _this.findZone("Outside");
+            card.setZone(out);
+        };
+        // moveAllToOutside: () => void;
+        this.moveAllToOutside = function () {
+            for (var index = 0; index < _this.cards.length; index++) {
+                var element = _this.cards[index];
+                _this.moveToOutside(element);
+            }
         };
         this.centreName = centreName;
         this.zones = zones;
@@ -164,11 +180,13 @@ var center1 = new RelaxSite("Poznan", zonesArray, cardsArray, doorsArray);
 // cardsArray.forEach(element => {
 //     console.log(element.getName())
 // });
-// cardsArray.slice(4)
+// center1.removeCard(card4)
 // console.log("=============================")
 // cardsArray.forEach(element => {
 //     console.log(element.getName())
 // });
+console.log(center1.cardsInZone(zone1));
+center1.move(card3, 1);
 // console.log("card with id 2000:" + center1.findCard(2000).name)
-// console.log(center1.cardsInZone(zone1))
-console.log(center1.cardsInAllZones());
+console.log(center1.cardsInZone(zone1));
+// console.log(center1.cardsInAllZones())

@@ -35,11 +35,19 @@ export class Zone {
             return true
         }
     };
+    
     public addCardToZone = (card: Card): void => {
         this.cards.push(card)
     };
     
-    // public removeCard = (card: Card): void => {
-    //     this.cards.splice(card)
-    // };
+    // removeCardFromZone
+    public removeCardFromZone = (member: Card): void => {
+        for (let index = 0; index < this.cards.length; index++) {
+            let element = this.cards[index];
+         
+            if(element.getId() == member.getId()){
+                this.cards.splice(index,1)
+            }
+        }
+    };
 }

@@ -12,7 +12,6 @@ export class RelaxSite implements RelaxCentre {
     private zones:Array<Zone>;
     private cards:Array<Card>;
     private doors:Array<Door>;
-    private girls:Array<string>;
 
     constructor(centreName: string, zones:Array<Zone>, cards:Array<Card>, doors:Array<Door>) {
         this.centreName = centreName;
@@ -35,14 +34,21 @@ export class RelaxSite implements RelaxCentre {
     };
 
     // removeCard
-    // public removeCard = (cardToRemove: Card): void => {
-    //     this.cards.splice(3)
-    // };
+    public removeCard = (member: Card): void => {
+        for (let index = 0; index < cardsArray.length; index++) {
+            let element = cardsArray[index];
+         
+            if(element.getId() == member.getId()){
+                cardsArray.splice(index,1)
+            }
+        }
+    };
 
     // addDoor
     public addDoor = (doorToAdd: Door): void => {
         this.doors.push(doorToAdd);
     };
+    
 
     // findZone is returning Zone object based on given string
     public findZone = (zoneName: string): Zone => {
@@ -74,9 +80,6 @@ export class RelaxSite implements RelaxCentre {
         return undefined
     };
 
-
-    // move: (card: Card, doorNumber: number) => string;
-
     // move is returning string which tells if you moved and where
 
     // * Returns a string description of the result of a card requesting to move through a door.
@@ -91,7 +94,7 @@ export class RelaxSite implements RelaxCentre {
         var doorDestination = door.getDestination()
 
         if(this.canMove(card,door)){
-            //TODO remove card from zone
+            doorDestination.removeCardFromZone(card)
             doorDestination.addCardToZone(card)
             return 'success'
         }else{
@@ -154,6 +157,7 @@ export class RelaxSite implements RelaxCentre {
         }
         return allCards
     };
+
     // cardsInAllZones: () => string;
     public cardsInAllZones = (): string => {
         let allCards = ''
@@ -168,13 +172,25 @@ export class RelaxSite implements RelaxCentre {
                 allCards += "Card id:" + card.getId() + " memberName:"+card.getName() + " type:"+ card.getType() + " rating:"+ card.getRating()
                 allCards += " credits:"+ card.getCredits() + "\n"
             }
-            
+
         }
         return allCards
     };
 
-    moveToOutside: (card: Card) => void;
-    moveAllToOutside: () => void;
+    // moveToOutside: (card: Card) => void;
+    public moveToOutside = (card: Card): void => {
+        var out = this.findZone("Outside")
+        card.setZone(out)
+    };
+
+    // moveAllToOutside: () => void;
+    public moveAllToOutside = (): void => {
+        for (let index = 0; index < this.cards.length; index++) {
+            const element = this.cards[index];
+
+            this.moveToOutside(element)
+        }
+    };
     
 }
 
@@ -191,13 +207,20 @@ let cardsArray = [card1,card2,card3,card4,card5,card6,card7,card8]
 
 
 var zone1 = new Zone("Reception",1,100,cardsArray)
-var zone2 = new Zone("Pool",1,100,cardsArray)
-var zone3 = new Zone("Sauna",1,100,cardsArray)
-let zonesArray = [zone1,zone2,zone3]
-
-var door1 = new Door(1,zone1)
+var zone2 = new Zone("Pool",3,10,cardsArray)
+var zone3 = new Zone("Sauna",5,2,cardsArray)
+var zone4 = new Zone("Sun Bed",1,1,cardsArray)
+var zone5 = new Zone("Outside",0,1000,cardsArray)
+let zonesArray = [zone1,zone2,zone3, zone4, zone5]
+ 
+var door1 = new Door(1,zone5)
 var door2 = new Door(2,zone2)
-let doorsArray = [door1,door2]
+var door3 = new Door(3,zone1)
+var door4 = new Door(4,zone1)
+var door5 = new Door(5,zone4)
+var door6 = new Door(6,zone1)
+var door7 = new Door(7,zone3)
+let doorsArray = [door1,door2, door3, door4, door5, door6, door7]
 
 var center1 = new RelaxSite("Poznan",zonesArray,cardsArray,doorsArray)
 
@@ -210,13 +233,17 @@ var center1 = new RelaxSite("Poznan",zonesArray,cardsArray,doorsArray)
 // cardsArray.forEach(element => {
 //     console.log(element.getName())
 // });
-// cardsArray.slice(4)
+
+// center1.removeCard(card4)
+
 // console.log("=============================")
 // cardsArray.forEach(element => {
 //     console.log(element.getName())
 // });
+console.log(center1.cardsInZone(zone1))
+center1.move(card3,1)
 // console.log("card with id 2000:" + center1.findCard(2000).name)
 
-// console.log(center1.cardsInZone(zone1))
-console.log(center1.cardsInAllZones())
+console.log(center1.cardsInZone(zone1))
+// console.log(center1.cardsInAllZones())
 

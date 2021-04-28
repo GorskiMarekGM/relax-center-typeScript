@@ -52,4 +52,13 @@ export class Card {
       
     };
 
+    // get rating of the card
+    public getRating = (): number => this.rating;
+
+    // get credits
+    public getCredits = (): number => this.credits;
+    
+    // get name
+    public getName = (): string => this.memberName;
+
 }

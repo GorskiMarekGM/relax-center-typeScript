@@ -26,4 +26,20 @@ export class Zone {
     }
     
     public getCards = (): Array<Card> => this.cards;
+
+    public isFull = (): boolean => {
+        
+        if(this.capacity < this.cards.length ){
+            return false
+        }else{
+            return true
+        }
+    };
+    public addCardToZone = (card: Card): void => {
+        this.cards.push(card)
+    };
+    
+    // public removeCard = (card: Card): void => {
+    //     this.cards.splice(card)
+    // };
 }

@@ -13,6 +13,17 @@ var Zone = /** @class */ (function () {
     function Zone(name, rating, capacity, cards) {
         var _this = this;
         this.getCards = function () { return _this.cards; };
+        this.isFull = function () {
+            if (_this.capacity < _this.cards.length) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        };
+        this.addCardToZone = function (card) {
+            _this.cards.push(card);
+        };
         this.name = name;
         this.rating = rating;
         this.capacity = capacity;

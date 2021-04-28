@@ -19,20 +19,7 @@ export class Door {
         this.destination = destination;
     }
 
-    // changeZone(card : Card){
-    //     //change zone to new, after going through the doors
-    //     card.setZone(this.destination);
-
-    //     var cardId = card.getId()
-
-    // }
-
-    // enterLoyaltyCard(loyalCard : LoyaltyCard){
-    //     loyalCard.useZone()
-    // }
+    public getDestination = (): Zone => this.destination;
     
-    // enterMemberCard(memberCard : MemberCard){
-    //     memberCard.useZone()
-    // }
 }
 

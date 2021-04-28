@@ -2,6 +2,8 @@ import { Card } from "./Card";
 
 export class StaffCard extends Card{
   private static currentId = 5000;
+  private static employeeNumber:number;
+  private static dept:string;
 
   /**
    * Constructor for a Member's card
@@ -9,13 +11,17 @@ export class StaffCard extends Card{
    * @param {number} rating - member's rating
    * @param {number} credits - inital number of credits
    * @param {string} centre - centre at which a member is registered
+   * @param {number} employeeNumber
+   * @param {string} dept
    * @param {string} type - type of the card
    */
   constructor(
     memberName: string,
-    rating: 10,
+    rating: number,
     credits: number,
     centre: string,
+    employeeNumber:number,
+    dept:string,
     type: string,
   ){
     super(rating,credits,centre, memberName, type="Staff")

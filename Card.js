@@ -23,6 +23,12 @@ var Card = /** @class */ (function () {
         this.getZone = function () { return _this.currentZone; };
         this.useZone = function () {
         };
+        // get rating of the card
+        this.getRating = function () { return _this.rating; };
+        // get credits
+        this.getCredits = function () { return _this.credits; };
+        // get name
+        this.getName = function () { return _this.memberName; };
         this.rating = rating;
         this.credits = credits;
         this.centre = centre;

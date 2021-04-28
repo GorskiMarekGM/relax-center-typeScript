@@ -1,17 +1,19 @@
+import { Zone } from "./Zone";
+
 /**
  * A card is used to move through a door.
  */
-class Card {
-    protected cardId:number;
+export class Card {
+    protected cardId: number;
     protected memberName:string;
     protected type:string;
     protected rating:number;
     protected credits:number;
     protected centre:string;
-    protected employeeNumber:number;
-    protected dept:string;
+    protected employeeNumber: number;
+    protected dept: string;
 
-    currentZone:Zone;
+    currentZone: Zone;
 
     constructor(rating: number, credits:number, centre:string, memberName:string, type:string) {
         this.rating = rating;
@@ -20,6 +22,20 @@ class Card {
         this.memberName = memberName;
         this.type = type;
     }
+
+    
+    //public getLoyaltyCard = (): LoyaltyCard => this.getType();
+
+    /**
+     * @return {number} card id
+     */
+    // Get card id
+    public getId = (): number => this.cardId;
+
+    /**
+     * @return {string} card type
+     */
+    public getType = (): string => this.type;
 
     /**
      * @return {Zone}
@@ -30,7 +46,7 @@ class Card {
         this.currentZone = value;
     }​​​​​​​​
 
-    public useZone = (): void => {
-    };
+    // public useZone = (): void => {
+    // };
 
 }

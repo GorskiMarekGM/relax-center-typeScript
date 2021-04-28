@@ -1,4 +1,6 @@
-class MemberCard extends Card{
+import { Card } from "./Card";
+
+export class MemberCard extends Card{
   private static currentId = 1000;
   // private cardId: number;
 
@@ -8,6 +10,7 @@ class MemberCard extends Card{
    * @param {number} rating - member's rating
    * @param {number} credits - inital number of credits
    * @param {string} centre - centre at which a member is registered
+   * @param {string} type - type of the card
    */
   constructor(
     memberName: string,
@@ -16,7 +19,7 @@ class MemberCard extends Card{
     centre: string,
     type: string,
   ){
-    super(rating,credits,centre, memberName, type="MemberCard")
+    super(rating,credits,centre, memberName, type="Member")
     this.cardId = MemberCard.currentId++;
   }
 

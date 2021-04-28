@@ -1,4 +1,5 @@
-class LoyaltyCard extends Card{
+import { Card } from "./Card";
+export class LoyaltyCard extends Card{
   private static currentId = 2000;
   private static loyaltyPoints = 20;
 
@@ -8,6 +9,7 @@ class LoyaltyCard extends Card{
    * @param {number} rating - member's rating
    * @param {number} credits - inital number of credits
    * @param {string} centre - centre at which a member is registered
+   * @param {string} type - type of the card
    */
   constructor(
     memberName: string,
@@ -17,7 +19,7 @@ class LoyaltyCard extends Card{
     centre: string,
     type: string,
   ){
-    super(rating,credits,centre, memberName, type="LoyaltyCard")
+    super(rating,credits,centre, memberName, type="Loyalty")
     this.cardId = LoyaltyCard.currentId++;
   }
 

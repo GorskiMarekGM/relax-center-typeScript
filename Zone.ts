@@ -7,7 +7,9 @@
  * say how many people(cards) are in the zone and who they are.
  */
 
-class Zone {
+import { Card } from "./Card";
+
+export class Zone {
     name:string;
     rating:number;
     capacity:number;

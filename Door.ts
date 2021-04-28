@@ -10,8 +10,9 @@ class Door {
 
     enter(card : Card){
         //get cardId
-        card.setZone(this.destination)
-        // card.useZone()
+        card.setZone(this.destination);
+        var LoyaltyCardObj = new LoyaltyCard("Marek",6,30,"aaa","staff");
+        LoyaltyCardObj.useZone()
     }
 
     constructor(doorId:number, destination:Zone) {

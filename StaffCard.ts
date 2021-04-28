@@ -1,6 +1,5 @@
 class StaffCard extends Card{
   private static currentId = 5000;
-  // private cardId: number;
 
   /**
    * Constructor for a Member's card
@@ -11,11 +10,12 @@ class StaffCard extends Card{
    */
   constructor(
     memberName: string,
-    rating: number,
+    rating: 10,
     credits: number,
-    centre: string
-  ) {
-    super(rating,credits,centre, memberName)
+    centre: string,
+    type: string,
+  ){
+    super(rating,credits,centre, memberName, type="StaffCard")
     this.cardId = StaffCard.currentId++;
   }
 

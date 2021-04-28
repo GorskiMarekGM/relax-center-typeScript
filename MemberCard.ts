@@ -13,9 +13,10 @@ class MemberCard extends Card{
     memberName: string,
     rating: number,
     credits: number,
-    centre: string
-  ) {
-    super(rating,credits,centre, memberName)
+    centre: string,
+    type: string,
+  ){
+    super(rating,credits,centre, memberName, type="MemberCard")
     this.cardId = MemberCard.currentId++;
   }
 

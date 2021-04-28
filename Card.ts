@@ -13,11 +13,12 @@ class Card {
 
     currentZone:Zone;
 
-    constructor(rating: number, credits:number, centre:string, memberName:string) {
+    constructor(rating: number, credits:number, centre:string, memberName:string, type:string) {
         this.rating = rating;
         this.credits = credits;
         this.centre = centre;
         this.memberName = memberName;
+        this.type = type;
     }
 
     /**
@@ -29,5 +30,7 @@ class Card {
         this.currentZone = value;
     }​​​​​​​​
 
+    public useZone = (): void => {
+    };
 
 }

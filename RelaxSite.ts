@@ -13,6 +13,7 @@ export class RelaxSite implements RelaxCentre {
     private cards:Array<Card>;
     private doors:Array<Door>;
 
+
     constructor(centreName: string, zones:Array<Zone>, cards:Array<Card>, doors:Array<Door>) {
         this.centreName = centreName;
         this.zones = zones;
@@ -32,17 +33,6 @@ export class RelaxSite implements RelaxCentre {
     public addCard = (cardToAdd: Card): void => {
         this.cards.push(cardToAdd);
     };
-
-    // removeCard
-    // public removeCard = (member: Card): void => {
-    //     for (let index = 0; index < cardsArray.length; index++) {
-    //         let element = cardsArray[index];
-         
-    //         if(element.getId() == member.getId()){
-    //             cardsArray.splice(index,1)
-    //         }
-    //     }
-    // };
 
     // addDoor
     public addDoor = (doorToAdd: Door): void => {
@@ -69,9 +59,9 @@ export class RelaxSite implements RelaxCentre {
             let cards = singleZone.cards
             // console.log("im at first for")
 
-            for (let index2 = 0; index2 < cards.length; index2++) {
+            for (let index2 = 0; index2 < this.cards.length; index2++) {
                 // console.log("im at sec for")
-                const singleCard = cards[index2];
+                const singleCard = this.cards[index2];
     
                 if(singleCard.getId() == cardId){
                     // console.log("im at if")
@@ -91,21 +81,19 @@ export class RelaxSite implements RelaxCentre {
     // * and a message specifying the reason is returned.
     
     public move = (cardToMove: Card, doorNumber: number): string => {
-        
         var door = this.getDoors(doorNumber)
         var cardDestination = door.getDestination()
+        // console.log("this.findCard(cardToMove.getId())")
+        console.log(this.findCard(cardToMove.getId()))
         var cardOrigin = this.findCard(cardToMove.getId())
-        // console.log("origin "+cardOrigin)
-        // console.log("cardToMove.getId() "+cardToMove.getId())
+        // console.log("Can i move throught doors: "+this.canMove(cardToMove,door))
 
         if(this.canMove(cardToMove,door)){
-            // console.log("getCards:")
-            // console.log(cardDestination.getCards())
             cardOrigin.removeCardFromZone(cardToMove)
             cardToMove.useZone()
-            // // console.log("getCards2:")
-            // // console.log(cardDestination.getCards())
+            cardToMove.changeZone(cardDestination)
             cardDestination.addCardToZone(cardToMove)
+
             return 'success'
         }else{
             return 'fail'
@@ -123,13 +111,19 @@ export class RelaxSite implements RelaxCentre {
         var ratingDestination = doorDestination.rating
         var ratingCard = card.getRating()
         var cardZone = card.getZone()
+        // console.log("cardZone"+cardZone)
+        console.log("cardZone"+cardZone.name)
+        console.log("door.getSource()"+door.getSource().name)
         
+        // console.log("im in canMove")
         if(doorDestination.isFull()){
+            // console.log("Im in first if")
             if(ratingCard >= ratingDestination){
+                // console.log("Im in sec if")
                 if(card.hasEnoughCredits()){
-                    console.log("cardzone"+cardZone.name)
-                    console.log("door.getSource()"+door.getSource().name)
+                    // console.log("Im in third if")
                     if(cardZone == door.getSource()){
+                        // console.log("Im in last if")
                         return true
                     }
                 }
@@ -202,4 +196,47 @@ export class RelaxSite implements RelaxCentre {
         }
     };
     
+
+    // For testing
+
+
+    // get cards
+    public getCardsArray = (): Array<Card> => {
+        return this.cards
+    };
+
+    // get doors
+    public getDoorsArray = (): Array<Door> => {
+        return this.doors
+    };
+
+    // get zones
+    public getZonesArray = (): Array<Zone> => {
+        return this.zones
+    };
+
+    // get card by index
+    public getCardByIndex = (indexInArray:number): Card => {
+        for (let index = 0; index < this.cards.length; index++) {
+            const element = this.cards[index];
+
+            if(index == indexInArray)
+            {
+                return element
+            }
+        }
+    };
+
+    // get zone by index
+    public getZoneByIndex = (indexInArray:number): Zone => {
+        for (let index = 0; index < this.zones.length; index++) {
+            const element = this.zones[index];
+
+            if(index == indexInArray)
+            {
+                return element
+            }
+        }
+    };
+
 }

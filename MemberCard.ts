@@ -1,4 +1,5 @@
 import { Card } from "./Card";
+import { Zone } from "./Zone";
 
 export class MemberCard extends Card{
   private static currentId = 1000;

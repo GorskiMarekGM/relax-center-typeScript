@@ -8,17 +8,26 @@ import { StaffCard } from "./StaffCard";
 import { Zone } from "./Zone";
 
 export class Tester {
-    cardsArray:Array<Card>
-    zonesArray:Array<Zone>
-    doorsArray:Array<Door>
     centre:RelaxSite
 
     constructor() {
+        this.createCentre()
+        this.setStartingZones()
     }
 
-    // Cards Part
-    public setCardsArray = (): void => {
+    // Create part
+    public createCentre = (): void => {
+          
         
+        var zone0 = new Zone("Outside",0,1000,[])
+        var zone1 = new Zone("Reception",1,100,[])
+        var zone2 = new Zone("Pool",3,10,[])
+        var zone3 = new Zone("Sauna",5,2,[])
+        var zone4 = new Zone("Sun Bed",1,1,[])
+
+        let zonesArray = [zone0,zone1,zone2,zone3,zone4]
+
+
         var card1 = new MemberCard("Joe",5,10,"Poznan","Member")
         var card2 = new MemberCard("Dan",1,12,"Poznan","Member")
         var card3 = new MemberCard("Matt",5,3,"Poznan","Member")
@@ -27,91 +36,38 @@ export class Tester {
         var card6 = new LoyaltyCard("Steve",3,30,"Hall","Loyal")
         var card7 = new StaffCard("Pete", 10, 5, "Poznan", 123, "Pool", "Staff")
         var card8 = new StaffCard("Chen", 10, 5, "Poznan", 124, "Pool", "Staff")
-    
-        this.cardsArray = [card1,card2,card3,card4,card5,card6,card7,card8]
-    };
 
-    public displayCardsArray = (): void => {
-        for (let index = 0; index < this.cardsArray.length; index++) {
-            const element = this.cardsArray[index];
+        let cardsArray = [card1, card2, card3, card4, card5, card6,card7,card8]
 
-            console.log(element)
-        }
-    };
 
-    public getCardsArray = (): Array<Card> => {
-        return this.cardsArray
-    };
-
-    // Zones part
-    public setZonesArray = (): void => {
-        
-        var zone0 = new Zone("Outside",0,1000,[])
-        var zone1 = new Zone("Reception",1,100,[])
-        var zone2 = new Zone("Pool",3,10,[])
-        var zone3 = new Zone("Sauna",5,2,[])
-        var zone4 = new Zone("Sun Bed",1,1,[])
-    
-        this.zonesArray = [zone0,zone1,zone2,zone3, zone4]
-    };
-
-    public displayZonesArray = (): void => {
-        for (let index = 0; index < this.zonesArray.length; index++) {
-            const element = this.zonesArray[index];
-
-            console.log(element)
-        }
-    };
-
-    public getZonesArray = (): Array<Zone> => {
-        return this.zonesArray
-    };
-
-    // Doors part
-    public setDoorsArray = (): void => {
-        
         // Outside -> Reception
-        var door0 = new Door(0,this.zonesArray[5],this.zonesArray[1])
+        var door0 = new Door(0,zone0,zone1)
 
         // Reception -> Outside
-        var door1 = new Door(1,this.zonesArray[1],this.zonesArray[5])
+        var door1 = new Door(1,zone0,zone1)
 
         // Reception -> Pool
-        var door2 = new Door(2,this.zonesArray[1],this.zonesArray[2])
+        var door2 = new Door(2,zone0,zone1)
 
         // Pool -> Reception
-        var door3 = new Door(3,this.zonesArray[2],this.zonesArray[1])
+        var door3 = new Door(3,zone0,zone1)
 
         // Sauna -> Reception
-        var door4 = new Door(4,this.zonesArray[3],this.zonesArray[1])
+        var door4 = new Door(4,zone0,zone1)
 
         // Reception -> Sunbed
-        var door5 = new Door(5,this.zonesArray[1],this.zonesArray[4])
+        var door5 = new Door(5,zone0,zone1)
 
         // Sunbed -> Reception
-        var door6 = new Door(6,this.zonesArray[4],this.zonesArray[1])
+        var door6 = new Door(6,zone0,zone1)
 
         // Pool -> Sauna
-        var door7 = new Door(7,this.zonesArray[2],this.zonesArray[3])
+        var door7 = new Door(7,zone0,zone1)
+
+        let doorsArray = [door0, door1, door2, door3, door4, door5, door6, door7]
     
-        this.doorsArray = [door0,door1,door2, door3, door4, door5, door6, door7]
-    };
-
-    public displayDoorsArray = (): void => {
-        for (let index = 0; index < this.doorsArray.length; index++) {
-            const element = this.doorsArray[index];
-
-            console.log(element)
-        }
-    };
-
-    public getDoorsArray = (): Array<Door> => {
-        return this.doorsArray
-    };
-
-    // Create part
-    public createCentre = (name:string,zones:Array<Zone>,cards:Array<Card>,doors:Array<Door>): void => {
-        this.centre = new RelaxSite(name,zones,cards,doors)
+        this.centre = new RelaxSite("Poznan",zonesArray,cardsArray,doorsArray)
+        console.log("Centre created")
     };
 
     public getCentre = (): RelaxSite => {
@@ -120,10 +76,12 @@ export class Tester {
 
     // Set starting zone for cards
     public setStartingZones = (): void => {
-        for (let index = 0; index < this.cardsArray.length; index++) {
-            const element = this.cardsArray[index];
+        
+        var zones = this.centre.getZonesArray()
+        for (let index = 0; index < this.centre.getCardsArray.length; index++) {
+            const element = this.centre.getCardsArray[index];
 
-            element.setZone(this.centre.findZone("Outside"))
+            element.setZone(zones[0])
         }
     };
 
@@ -131,101 +89,91 @@ export class Tester {
 
 
 
-// let cardsArray = [card1,card2,card3,card4,card5,card6,card7,card8]
+var card1 = new MemberCard("Joe",5,10,"Poznan","Member")
+var card2 = new MemberCard("Dan",1,12,"Poznan","Member")
+var card3 = new MemberCard("Matt",5,3,"Poznan","Member")
+var card4 = new MemberCard("Tim",5,20,"Poznan","Member")
+var card5 = new LoyaltyCard("Bob",3,30,"Main Center","Loyal")
+var card6 = new LoyaltyCard("Steve",3,30,"Hall","Loyal")
+var card7 = new StaffCard("Pete", 10, 5, "Poznan", 123, "Pool", "Staff")
+var card8 = new StaffCard("Chen", 10, 5, "Poznan", 124, "Pool", "Staff")
 
-
-
-var tester = new Tester()
-tester.setCardsArray()
-// tester.displayCardsArray()
-tester.setZonesArray()
-// tester.displayZonesArray()
-tester.setDoorsArray()
-// tester.setStartingZones()
-tester.createCentre("Poznan",tester.getZonesArray(),tester.getCardsArray(),tester.getDoorsArray())
-
-var PoznanCentre = tester.getCentre()
-
-console.log(PoznanCentre.findZone("Outside"))
-var cards = tester.getCardsArray()
-var zones = tester.getZonesArray()
-var doors = tester.getDoorsArray()
-
-// PoznanCentre.move(cards[1],0)
-// PoznanCentre.move(cards[2],0)
-// PoznanCentre.move(cards[3],0)
-
-// PoznanCentre.cardsInZone(zones[0])
-// PoznanCentre.cardsInZone(zones[1])
-
-
-// PoznanCentre.move(cards[1],1)
-// PoznanCentre.move(cards[2],2)
-// PoznanCentre.move(cards[3],5)
-
-// PoznanCentre.cardsInZone(zones[0])
-// PoznanCentre.cardsInZone(zones[1])
-// PoznanCentre.cardsInZone(zones[2])
-// PoznanCentre.cardsInZone(zones[5])
  
+let cardsArray = [card1, card2, card3, card4, card5, card6,card7,card8]
 
-// var center1 = new RelaxSite("Poznan",zonesArray,cardsArray,doorsArray)
+ 
+var zone0 = new Zone("Outside",0,1000,cardsArray)
+var zone1 = new Zone("Reception",1,100,[])
+var zone2 = new Zone("Pool",3,10,[])
+var zone3 = new Zone("Sauna",5,2,[])
+var zone4 = new Zone("Sun Bed",1,1,[])
+ 
+let zonesArray = [zone0,zone1,zone2,zone3,zone4]
 
+// set zones for cards
 
-//=============TESTING================
+card1.setZone(zone0)
+card2.setZone(zone0)
+card3.setZone(zone0)
+card4.setZone(zone0)
+card5.setZone(zone0)
+card6.setZone(zone0)
+card7.setZone(zone0)
+card8.setZone(zone0)
 
-// console.log(center1.getCentreName())
-// console.log(center1.findZone("Sauna"))
+ 
+// Outside -> Reception
+var door0 = new Door(0,zone0,zone1)
+ 
+// Reception -> Outside
+var door1 = new Door(1,zone1,zone0)
+ 
+// Reception -> Pool
+var door2 = new Door(2,zone1,zone2)
+ 
+// Pool -> Reception
+var door3 = new Door(3,zone2,zone1)
+ 
+// Sauna -> Reception
+var door4 = new Door(4,zone3,zone1)
+ 
+// Reception -> Sunbed
+var door5 = new Door(5,zone1,zone4)
+ 
+// Sunbed -> Reception
+var door6 = new Door(6,zone4,zone1)
+ 
+// Pool -> Sauna
+var door7 = new Door(7,zone2,zone3)
+ 
+let doorsArray = [door0, door1, door2, door3, door4, door5, door6, door7]
+    
 
-// cardsArray.forEach(element => {
-//     console.log(element.getName())
-// });
+ 
+// Testing
+var PoznanCentre = new RelaxSite("Poznan",zonesArray,cardsArray,doorsArray)
+ 
+console.log(PoznanCentre.cardsInAllZones())
 
-// center1.removeCard(card4)
+PoznanCentre.move(card4,0)
+// PoznanCentre.move(card3,0)
+// PoznanCentre.move(card4,0)
+// PoznanCentre.move(card8,0)
 
-// console.log("=============================")
-// cardsArray.forEach(element => {
-//     console.log(element.getName())
-// });
-// All in reception
-// console.log(center1.cardsInZone(zone1))
+console.log("=========================")
+console.log(PoznanCentre.cardsInAllZones())
 
+console.log(card4.getZone().name)
+console.log("door2 source "+door2.source.name)
+console.log("door2 destination "+door2.destination.name)
+console.log("card currentZone "+card4.currentZone.name)
+// console.log(card3.getZone().name)
+// console.log(card4.getZone().name)
+// console.log(card8.getZone().name)
+PoznanCentre.move(card4,2)
+// PoznanCentre.move(card4,2)
+// PoznanCentre.move(card8,5)
 
-// console.log(center1.findCard(1002))
-
-
-// var readline = require('readline');
-
-// let userRes;
-// while (userRes !== '0') {
-//     console.log("Option 1")
-//     console.log("Option 2")
-//     console.log("Option 3")
-//     userRes = readLineSync.question("Pick an option");
-//     if (userRes === '1') {
-//         doSomething()
-//     } else if (userRes === '2') {
-//         doSomethingElse()
-//     }
-// }
-
-
-// console.log("==========RECEPTION==========")
-// console.log(center1.cardsInZone(zone1))
-// console.log(card5.getLoyaltyPoints())
-// console.log(center1.canMove(card4,door2))
-// console.log(center1.canMove(card5,door2))
-// center1.move(card4,2)
-// center1.move(card5,2)
-// // center1.moveAllToOutside()
-
-// console.log("==========RECEPTION==========")
-// console.log(center1.cardsInZone(zone1))
-// console.log("============POOL=============")
-// // // console.log("card with id 2000:" + center1.findCard(2000).name)
-
-// console.log(center1.cardsInZone(zone2))
-// console.log(card5.getLoyaltyPoints())
-// console.log(center1.cardsInAllZones())
-
-// card6.convertCredits()
+console.log("=========================")
+console.log(PoznanCentre.cardsInAllZones())
+console.log("card currentZone "+card4.currentZone.name)

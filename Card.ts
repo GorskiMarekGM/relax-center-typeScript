@@ -54,7 +54,7 @@ export class Card {
     };
 
     public hasEnoughCredits = (): boolean => {
-        return false
+        return true
     };
 
     // get rating of the card
@@ -66,4 +66,6 @@ export class Card {
     // get name
     public getName = (): string => this.memberName;
 
+    // change zone
+    public changeZone = (zone:Zone): void => {this.currentZone = zone};
 }

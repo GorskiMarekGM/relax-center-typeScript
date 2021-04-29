@@ -1,4 +1,5 @@
 import { Card } from "./Card";
+import { Zone } from "./Zone";
 export class LoyaltyCard extends Card {
   private static currentId = 2000;
   private loyaltyPoints = 21;
@@ -81,7 +82,7 @@ export class LoyaltyCard extends Card {
    * @return {boolean} true if a card has enough credits to enter a zone,
    * else false
    */
-  public hasEnoughCredits = (): boolean => this.credits >= 3;
+  hasEnoughCredits = (): boolean => this.credits >= 3;
 
   /**
    * @return {string} a String representation of the member card details

@@ -14,15 +14,6 @@ var RelaxSite = /** @class */ (function () {
         this.addCard = function (cardToAdd) {
             _this.cards.push(cardToAdd);
         };
-        // removeCard
-        // public removeCard = (member: Card): void => {
-        //     for (let index = 0; index < cardsArray.length; index++) {
-        //         let element = cardsArray[index];
-        //         if(element.getId() == member.getId()){
-        //             cardsArray.splice(index,1)
-        //         }
-        //     }
-        // };
         // addDoor
         this.addDoor = function (doorToAdd) {
             _this.doors.push(doorToAdd);
@@ -43,9 +34,9 @@ var RelaxSite = /** @class */ (function () {
                 var singleZone = _this.zones[index];
                 var cards = singleZone.cards;
                 // console.log("im at first for")
-                for (var index2 = 0; index2 < cards.length; index2++) {
+                for (var index2 = 0; index2 < _this.cards.length; index2++) {
                     // console.log("im at sec for")
-                    var singleCard = cards[index2];
+                    var singleCard = _this.cards[index2];
                     if (singleCard.getId() == cardId) {
                         // console.log("im at if")
                         return singleZone;
@@ -63,16 +54,14 @@ var RelaxSite = /** @class */ (function () {
         this.move = function (cardToMove, doorNumber) {
             var door = _this.getDoors(doorNumber);
             var cardDestination = door.getDestination();
+            // console.log("this.findCard(cardToMove.getId())")
+            console.log(_this.findCard(cardToMove.getId()));
             var cardOrigin = _this.findCard(cardToMove.getId());
-            // console.log("origin "+cardOrigin)
-            // console.log("cardToMove.getId() "+cardToMove.getId())
+            // console.log("Can i move throught doors: "+this.canMove(cardToMove,door))
             if (_this.canMove(cardToMove, door)) {
-                // console.log("getCards:")
-                // console.log(cardDestination.getCards())
                 cardOrigin.removeCardFromZone(cardToMove);
                 cardToMove.useZone();
-                // // console.log("getCards2:")
-                // // console.log(cardDestination.getCards())
+                cardToMove.changeZone(cardDestination);
                 cardDestination.addCardToZone(cardToMove);
                 return 'success';
             }
@@ -90,12 +79,18 @@ var RelaxSite = /** @class */ (function () {
             var ratingDestination = doorDestination.rating;
             var ratingCard = card.getRating();
             var cardZone = card.getZone();
+            // console.log("cardZone"+cardZone)
+            console.log("cardZone" + cardZone.name);
+            console.log("door.getSource()" + door.getSource().name);
+            // console.log("im in canMove")
             if (doorDestination.isFull()) {
+                // console.log("Im in first if")
                 if (ratingCard >= ratingDestination) {
+                    // console.log("Im in sec if")
                     if (card.hasEnoughCredits()) {
-                        console.log("cardzone" + cardZone.name);
-                        console.log("door.getSource()" + door.getSource().name);
+                        // console.log("Im in third if")
                         if (cardZone == door.getSource()) {
+                            // console.log("Im in last if")
                             return true;
                         }
                     }
@@ -153,6 +148,37 @@ var RelaxSite = /** @class */ (function () {
             for (var index = 0; index < _this.cards.length; index++) {
                 var element = _this.cards[index];
                 _this.moveToOutside(element);
+            }
+        };
+        // For testing
+        // get cards
+        this.getCardsArray = function () {
+            return _this.cards;
+        };
+        // get doors
+        this.getDoorsArray = function () {
+            return _this.doors;
+        };
+        // get zones
+        this.getZonesArray = function () {
+            return _this.zones;
+        };
+        // get card by index
+        this.getCardByIndex = function (indexInArray) {
+            for (var index = 0; index < _this.cards.length; index++) {
+                var element = _this.cards[index];
+                if (index == indexInArray) {
+                    return element;
+                }
+            }
+        };
+        // get zone by index
+        this.getZoneByIndex = function (indexInArray) {
+            for (var index = 0; index < _this.zones.length; index++) {
+                var element = _this.zones[index];
+                if (index == indexInArray) {
+                    return element;
+                }
             }
         };
         this.centreName = centreName;

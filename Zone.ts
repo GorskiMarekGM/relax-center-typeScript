@@ -41,11 +41,11 @@ export class Zone {
     };
     
     // removeCardFromZone
-    public removeCardFromZone = (member: Card): void => {
+    public removeCardFromZone = (card: Card): void => {
         for (let index = 0; index < this.cards.length; index++) {
             let element = this.cards[index];
          
-            if(element.getId() == member.getId()){
+            if(element.getId() == card.getId()){
                 this.cards.splice(index,1)
             }
         }

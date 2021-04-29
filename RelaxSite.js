@@ -1,11 +1,6 @@
 "use strict";
 exports.__esModule = true;
 exports.RelaxSite = void 0;
-var Door_1 = require("./Door");
-var LoyaltyCard_1 = require("./LoyaltyCard");
-var MemberCard_1 = require("./MemberCard");
-var StaffCard_1 = require("./StaffCard");
-var Zone_1 = require("./Zone");
 var RelaxSite = /** @class */ (function () {
     function RelaxSite(centreName, zones, cards, doors) {
         var _this = this;
@@ -20,14 +15,14 @@ var RelaxSite = /** @class */ (function () {
             _this.cards.push(cardToAdd);
         };
         // removeCard
-        this.removeCard = function (member) {
-            for (var index = 0; index < cardsArray.length; index++) {
-                var element = cardsArray[index];
-                if (element.getId() == member.getId()) {
-                    cardsArray.splice(index, 1);
-                }
-            }
-        };
+        // public removeCard = (member: Card): void => {
+        //     for (let index = 0; index < cardsArray.length; index++) {
+        //         let element = cardsArray[index];
+        //         if(element.getId() == member.getId()){
+        //             cardsArray.splice(index,1)
+        //         }
+        //     }
+        // };
         // addDoor
         this.addDoor = function (doorToAdd) {
             _this.doors.push(doorToAdd);
@@ -47,9 +42,12 @@ var RelaxSite = /** @class */ (function () {
             for (var index = 0; index < _this.zones.length; index++) {
                 var singleZone = _this.zones[index];
                 var cards = singleZone.cards;
+                // console.log("im at first for")
                 for (var index2 = 0; index2 < cards.length; index2++) {
-                    var singleCard = cards[index];
+                    // console.log("im at sec for")
+                    var singleCard = cards[index2];
                     if (singleCard.getId() == cardId) {
+                        // console.log("im at if")
                         return singleZone;
                     }
                 }
@@ -62,12 +60,20 @@ var RelaxSite = /** @class */ (function () {
         // * zone and added to the destination zone and a suitable message returned.
         // * If the move cannot be made, the state of the system remains unchanged
         // * and a message specifying the reason is returned.
-        this.move = function (card, doorNumber) {
+        this.move = function (cardToMove, doorNumber) {
             var door = _this.getDoors(doorNumber);
-            var doorDestination = door.getDestination();
-            if (_this.canMove(card, door)) {
-                doorDestination.removeCardFromZone(card);
-                doorDestination.addCardToZone(card);
+            var cardDestination = door.getDestination();
+            var cardOrigin = _this.findCard(cardToMove.getId());
+            // console.log("origin "+cardOrigin)
+            // console.log("cardToMove.getId() "+cardToMove.getId())
+            if (_this.canMove(cardToMove, door)) {
+                // console.log("getCards:")
+                // console.log(cardDestination.getCards())
+                cardOrigin.removeCardFromZone(cardToMove);
+                cardToMove.useZone();
+                // // console.log("getCards2:")
+                // // console.log(cardDestination.getCards())
+                cardDestination.addCardToZone(cardToMove);
                 return 'success';
             }
             else {
@@ -83,13 +89,13 @@ var RelaxSite = /** @class */ (function () {
             var doorDestination = door.getDestination();
             var ratingDestination = doorDestination.rating;
             var ratingCard = card.getRating();
-            var creditsCard = card.getCredits();
-            var cardZone = card.getType();
+            var cardZone = card.getZone();
             if (doorDestination.isFull()) {
                 if (ratingCard >= ratingDestination) {
-                    if (creditsCard > 0) {
-                        // TODO *and the card is currently in the source zone
-                        if (true) {
+                    if (card.hasEnoughCredits()) {
+                        console.log("cardzone" + cardZone.name);
+                        console.log("door.getSource()" + door.getSource().name);
+                        if (cardZone == door.getSource()) {
                             return true;
                         }
                     }
@@ -131,7 +137,7 @@ var RelaxSite = /** @class */ (function () {
                 allCards += "Zone name: " + singleZone.name + "\n\n";
                 for (var index2 = 0; index2 < cards.length; index2++) {
                     var card = cards[index2];
-                    allCards += "Card id:" + card.getId() + " memberName:" + card.getName() + " type:" + card.getType() + " rating:" + card.getRating();
+                    allCards += "Id:" + card.getId() + " name:" + card.getName() + " type:" + card.getType() + " rating:" + card.getRating();
                     allCards += " credits:" + card.getCredits() + "\n";
                 }
             }
@@ -157,36 +163,3 @@ var RelaxSite = /** @class */ (function () {
     return RelaxSite;
 }());
 exports.RelaxSite = RelaxSite;
-var card1 = new MemberCard_1.MemberCard("Joe", 5, 10, "Poznan", "Member");
-var card2 = new MemberCard_1.MemberCard("Dan", 1, 12, "Poznan", "Member");
-var card3 = new MemberCard_1.MemberCard("Matt", 5, 3, "Poznan", "Member");
-var card4 = new MemberCard_1.MemberCard("Tim", 5, 20, "Poznan", "Member");
-var card5 = new LoyaltyCard_1.LoyaltyCard("Bob", 3, 30, "Main Center", "Loyal");
-var card6 = new LoyaltyCard_1.LoyaltyCard("Steve", 3, 30, "Hall", "Loyal");
-var card7 = new StaffCard_1.StaffCard("Pete", 10, 5, "Poznan", 123, "Pool", "Staff");
-var card8 = new StaffCard_1.StaffCard("Chen", 10, 5, "Poznan", 124, "Pool", "Staff");
-var cardsArray = [card1, card2, card3, card4, card5, card6, card7, card8];
-var zone1 = new Zone_1.Zone("Reception", 1, 100, cardsArray);
-var zone2 = new Zone_1.Zone("Pool", 1, 100, cardsArray);
-var zone3 = new Zone_1.Zone("Sauna", 1, 100, cardsArray);
-var zonesArray = [zone1, zone2, zone3];
-var door1 = new Door_1.Door(1, zone1);
-var door2 = new Door_1.Door(2, zone2);
-var doorsArray = [door1, door2];
-var center1 = new RelaxSite("Poznan", zonesArray, cardsArray, doorsArray);
-//=============TESTING================
-// console.log(center1.getCentreName())
-// console.log(center1.findZone("Sauna"))
-// cardsArray.forEach(element => {
-//     console.log(element.getName())
-// });
-// center1.removeCard(card4)
-// console.log("=============================")
-// cardsArray.forEach(element => {
-//     console.log(element.getName())
-// });
-console.log(center1.cardsInZone(zone1));
-center1.move(card3, 1);
-// console.log("card with id 2000:" + center1.findCard(2000).name)
-console.log(center1.cardsInZone(zone1));
-// console.log(center1.cardsInAllZones())

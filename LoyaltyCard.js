@@ -31,6 +31,7 @@ var LoyaltyCard = /** @class */ (function (_super) {
     // adding 30 creadits to an account for begining 
     credits, centre, type) {
         var _this = _super.call(this, rating, credits, centre, memberName, type = "Loyalty") || this;
+        _this.loyaltyPoints = 21;
         /**
          * @return {string} member's name
          */
@@ -63,20 +64,32 @@ var LoyaltyCard = /** @class */ (function (_super) {
         _this.useZone = function () {
             _this.credits -= 3;
             // it may not work???????????????????????????????????????????????
-            LoyaltyCard.loyaltyPoints += 2;
+            _this.loyaltyPoints += 2;
+            _this.convertCredits();
         };
         /**
          * @return {number} number of credits on the card
          */
         _this.getCredits = function () { return _this.credits; };
         /**
+         * @return {number} number of credits on the card
+         */
+        _this.getLoyaltyPoints = function () { return _this.loyaltyPoints; };
+        /**
          * @return {boolean} true if a card has enough credits to enter a zone,
          * else false
          */
-        _this.hasEnoughCredits = function () { return _this.credits >= 4; };
+        _this.hasEnoughCredits = function () { return _this.credits >= 3; };
         /**
          * @return {string} a String representation of the member card details
          */
+        _this.convertCredits = function () {
+            var loyalty = _this.loyaltyPoints;
+            var credits = Math.round(loyalty / 5);
+            var rest = loyalty % 5;
+            _this.credits += credits;
+            _this.loyaltyPoints = rest;
+        };
         _this.toString = function () {
             return "***Member Card***" +
                 "\nCard No: " +
@@ -95,7 +108,6 @@ var LoyaltyCard = /** @class */ (function (_super) {
         return _this;
     }
     LoyaltyCard.currentId = 2000;
-    LoyaltyCard.loyaltyPoints = 20;
     return LoyaltyCard;
 }(Card_1.Card));
 exports.LoyaltyCard = LoyaltyCard;

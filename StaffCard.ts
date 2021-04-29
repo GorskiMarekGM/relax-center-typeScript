@@ -4,6 +4,7 @@ export class StaffCard extends Card{
   private static currentId = 5000;
   private static employeeNumber:number;
   private static dept:string;
+  private fitnesScore = 0;
 
   /**
    * Constructor for a Member's card
@@ -63,19 +64,23 @@ export class StaffCard extends Card{
    * decrements the credits to show that a zone has been use
    */
   public useZone = (): void => {
-    this.credits -= 4;
+    this.fitnesScore++;
   };
 
   /**
    * @return {number} number of credits on the card
    */
   public getCredits = (): number => this.credits;
+  /**
+   * @return {number} number of credits on the card
+   */
+  public getFitnesScore = (): number => this.fitnesScore;
 
   /**
    * @return {boolean} true if a card has enough credits to enter a zone,
    * else false
    */
-  public hasEnoughCredits = (): boolean => this.credits >= 4;
+  public hasEnoughCredits = (): boolean => true;
 
   /**
    * @return {string} a String representation of the member card details

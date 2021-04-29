@@ -25,10 +25,10 @@ var Zone = /** @class */ (function () {
             _this.cards.push(card);
         };
         // removeCardFromZone
-        this.removeCardFromZone = function (member) {
+        this.removeCardFromZone = function (card) {
             for (var index = 0; index < _this.cards.length; index++) {
                 var element = _this.cards[index];
-                if (element.getId() == member.getId()) {
+                if (element.getId() == card.getId()) {
                     _this.cards.splice(index, 1);
                 }
             }

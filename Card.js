@@ -21,7 +21,11 @@ var Card = /** @class */ (function () {
          * @return {Zone}
          */
         this.getZone = function () { return _this.currentZone; };
+        // Methods to override
         this.useZone = function () {
+        };
+        this.hasEnoughCredits = function () {
+            return false;
         };
         // get rating of the card
         this.getRating = function () { return _this.rating; };

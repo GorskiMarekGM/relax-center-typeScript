@@ -12,13 +12,16 @@ import { Zone } from "./Zone";
  */
 export class Door {
     doorId:number;
+    source:Zone;
     destination:Zone;
 
-    constructor(doorId:number, destination:Zone) {
+    constructor(doorId:number,source:Zone, destination:Zone) {
         this.doorId = doorId;
+        this.source = source;
         this.destination = destination;
     }
 
+    public getSource = (): Zone => this.source;
     public getDestination = (): Zone => this.destination;
     
 }

@@ -48,8 +48,13 @@ export class Card {
         this.currentZone = value;
     }​​​​​​​​
 
+    // Methods to override
     useZone = (): void => {
       
+    };
+
+    public hasEnoughCredits = (): boolean => {
+        return false
     };
 
     // get rating of the card

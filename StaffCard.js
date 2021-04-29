@@ -31,6 +31,7 @@ var StaffCard = /** @class */ (function (_super) {
      */
     function StaffCard(memberName, rating, credits, centre, employeeNumber, dept, type) {
         var _this = _super.call(this, rating, credits, centre, memberName, type = "Staff") || this;
+        _this.fitnesScore = 0;
         /**
          * @return {string} member's name
          */
@@ -61,17 +62,21 @@ var StaffCard = /** @class */ (function (_super) {
          * decrements the credits to show that a zone has been use
          */
         _this.useZone = function () {
-            _this.credits -= 4;
+            _this.fitnesScore++;
         };
         /**
          * @return {number} number of credits on the card
          */
         _this.getCredits = function () { return _this.credits; };
         /**
+         * @return {number} number of credits on the card
+         */
+        _this.getFitnesScore = function () { return _this.fitnesScore; };
+        /**
          * @return {boolean} true if a card has enough credits to enter a zone,
          * else false
          */
-        _this.hasEnoughCredits = function () { return _this.credits >= 4; };
+        _this.hasEnoughCredits = function () { return true; };
         /**
          * @return {string} a String representation of the member card details
          */

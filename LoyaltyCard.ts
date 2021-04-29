@@ -1,7 +1,7 @@
 import { Card } from "./Card";
 export class LoyaltyCard extends Card {
   private static currentId = 2000;
-  private static loyaltyPoints = 20;
+  private loyaltyPoints = 21;
 
   /**
    * Constructor for a Member's card
@@ -61,7 +61,9 @@ export class LoyaltyCard extends Card {
   useZone = (): void => {
     this.credits -= 3;
     // it may not work???????????????????????????????????????????????
-    LoyaltyCard.loyaltyPoints += 2;
+    this.loyaltyPoints += 2;
+
+    this.convertCredits()
   }; 
 
   /**
@@ -69,15 +71,34 @@ export class LoyaltyCard extends Card {
    */
   public getCredits = (): number => this.credits;
 
+
+  /**
+   * @return {number} number of credits on the card
+   */
+   public getLoyaltyPoints = (): number => this.loyaltyPoints;
+
   /**
    * @return {boolean} true if a card has enough credits to enter a zone,
    * else false
    */
-  public hasEnoughCredits = (): boolean => this.credits >= 4;
+  public hasEnoughCredits = (): boolean => this.credits >= 3;
 
   /**
    * @return {string} a String representation of the member card details
    */
+
+  public convertCredits = (): void => {
+    var loyalty = this.loyaltyPoints
+
+    var credits = Math.round(loyalty / 5)
+    var rest = loyalty % 5
+
+    this.credits += credits
+    this.loyaltyPoints = rest
+
+  };
+
+
   public toString = (): string =>
     "***Member Card***" +
     "\nCard No: " +

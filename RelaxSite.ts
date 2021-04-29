@@ -34,21 +34,20 @@ export class RelaxSite implements RelaxCentre {
     };
 
     // removeCard
-    public removeCard = (member: Card): void => {
-        for (let index = 0; index < cardsArray.length; index++) {
-            let element = cardsArray[index];
+    // public removeCard = (member: Card): void => {
+    //     for (let index = 0; index < cardsArray.length; index++) {
+    //         let element = cardsArray[index];
          
-            if(element.getId() == member.getId()){
-                cardsArray.splice(index,1)
-            }
-        }
-    };
+    //         if(element.getId() == member.getId()){
+    //             cardsArray.splice(index,1)
+    //         }
+    //     }
+    // };
 
     // addDoor
     public addDoor = (doorToAdd: Door): void => {
         this.doors.push(doorToAdd);
     };
-    
 
     // findZone is returning Zone object based on given string
     public findZone = (zoneName: string): Zone => {
@@ -68,11 +67,14 @@ export class RelaxSite implements RelaxCentre {
             const singleZone = this.zones[index];
 
             let cards = singleZone.cards
+            // console.log("im at first for")
 
             for (let index2 = 0; index2 < cards.length; index2++) {
-                const singleCard = cards[index];
+                // console.log("im at sec for")
+                const singleCard = cards[index2];
     
                 if(singleCard.getId() == cardId){
+                    // console.log("im at if")
                     return singleZone
                 }
             }
@@ -88,14 +90,22 @@ export class RelaxSite implements RelaxCentre {
     // * If the move cannot be made, the state of the system remains unchanged
     // * and a message specifying the reason is returned.
     
-    public move = (card: Card, doorNumber: number): string => {
+    public move = (cardToMove: Card, doorNumber: number): string => {
         
         var door = this.getDoors(doorNumber)
-        var doorDestination = door.getDestination()
+        var cardDestination = door.getDestination()
+        var cardOrigin = this.findCard(cardToMove.getId())
+        // console.log("origin "+cardOrigin)
+        // console.log("cardToMove.getId() "+cardToMove.getId())
 
-        if(this.canMove(card,door)){
-            doorDestination.removeCardFromZone(card)
-            doorDestination.addCardToZone(card)
+        if(this.canMove(cardToMove,door)){
+            // console.log("getCards:")
+            // console.log(cardDestination.getCards())
+            cardOrigin.removeCardFromZone(cardToMove)
+            cardToMove.useZone()
+            // // console.log("getCards2:")
+            // // console.log(cardDestination.getCards())
+            cardDestination.addCardToZone(cardToMove)
             return 'success'
         }else{
             return 'fail'
@@ -112,14 +122,14 @@ export class RelaxSite implements RelaxCentre {
         var doorDestination = door.getDestination()
         var ratingDestination = doorDestination.rating
         var ratingCard = card.getRating()
-        var creditsCard = card.getCredits()
-        var cardZone = card.getType()
+        var cardZone = card.getZone()
         
         if(doorDestination.isFull()){
             if(ratingCard >= ratingDestination){
-                if(creditsCard > 0){
-                    // TODO *and the card is currently in the source zone
-                    if(true){
+                if(card.hasEnoughCredits()){
+                    console.log("cardzone"+cardZone.name)
+                    console.log("door.getSource()"+door.getSource().name)
+                    if(cardZone == door.getSource()){
                         return true
                     }
                 }
@@ -169,7 +179,7 @@ export class RelaxSite implements RelaxCentre {
             for (let index2 = 0; index2 < cards.length; index2++) {
                 let card = cards[index2];
     
-                allCards += "Card id:" + card.getId() + " memberName:"+card.getName() + " type:"+ card.getType() + " rating:"+ card.getRating()
+                allCards += "Id:" + card.getId() + " name:"+card.getName() + " type:"+ card.getType() + " rating:"+ card.getRating()
                 allCards += " credits:"+ card.getCredits() + "\n"
             }
 
@@ -193,57 +203,3 @@ export class RelaxSite implements RelaxCentre {
     };
     
 }
-
-
-var card1 = new MemberCard("Joe",5,10,"Poznan","Member")
-var card2 = new MemberCard("Dan",1,12,"Poznan","Member")
-var card3 = new MemberCard("Matt",5,3,"Poznan","Member")
-var card4 = new MemberCard("Tim",5,20,"Poznan","Member")
-var card5 = new LoyaltyCard("Bob",3,30,"Main Center","Loyal")
-var card6 = new LoyaltyCard("Steve",3,30,"Hall","Loyal")
-var card7 = new StaffCard("Pete", 10, 5, "Poznan", 123, "Pool", "Staff")
-var card8 = new StaffCard("Chen", 10, 5, "Poznan", 124, "Pool", "Staff")
-let cardsArray = [card1,card2,card3,card4,card5,card6,card7,card8]
-
-
-var zone1 = new Zone("Reception",1,100,cardsArray)
-var zone2 = new Zone("Pool",3,10,cardsArray)
-var zone3 = new Zone("Sauna",5,2,cardsArray)
-var zone4 = new Zone("Sun Bed",1,1,cardsArray)
-var zone5 = new Zone("Outside",0,1000,cardsArray)
-let zonesArray = [zone1,zone2,zone3, zone4, zone5]
- 
-var door1 = new Door(1,zone5)
-var door2 = new Door(2,zone2)
-var door3 = new Door(3,zone1)
-var door4 = new Door(4,zone1)
-var door5 = new Door(5,zone4)
-var door6 = new Door(6,zone1)
-var door7 = new Door(7,zone3)
-let doorsArray = [door1,door2, door3, door4, door5, door6, door7]
-
-var center1 = new RelaxSite("Poznan",zonesArray,cardsArray,doorsArray)
-
-
-//=============TESTING================
-
-// console.log(center1.getCentreName())
-// console.log(center1.findZone("Sauna"))
-
-// cardsArray.forEach(element => {
-//     console.log(element.getName())
-// });
-
-// center1.removeCard(card4)
-
-// console.log("=============================")
-// cardsArray.forEach(element => {
-//     console.log(element.getName())
-// });
-console.log(center1.cardsInZone(zone1))
-center1.move(card3,1)
-// console.log("card with id 2000:" + center1.findCard(2000).name)
-
-console.log(center1.cardsInZone(zone1))
-// console.log(center1.cardsInAllZones())
-

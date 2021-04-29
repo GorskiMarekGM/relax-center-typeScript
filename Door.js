@@ -8,10 +8,12 @@ exports.Door = void 0;
  *
  */
 var Door = /** @class */ (function () {
-    function Door(doorId, destination) {
+    function Door(doorId, source, destination) {
         var _this = this;
+        this.getSource = function () { return _this.source; };
         this.getDestination = function () { return _this.destination; };
         this.doorId = doorId;
+        this.source = source;
         this.destination = destination;
     }
     return Door;

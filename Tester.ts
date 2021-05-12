@@ -2,7 +2,6 @@ import { Card } from "./Card";
 import { Door } from "./Door";
 import { LoyaltyCard } from "./LoyaltyCard";
 import { MemberCard } from "./MemberCard";
-import { RelaxCentre } from "./RelaxCentre";
 import { RelaxSite } from "./RelaxSite";
 import { StaffCard } from "./StaffCard";
 import { Zone } from "./Zone";
@@ -156,9 +155,10 @@ var PoznanCentre = new RelaxSite("Poznan",zonesArray,cardsArray,doorsArray)
 console.log(PoznanCentre.cardsInAllZones())
 
 PoznanCentre.move(card4,0)
-// PoznanCentre.move(card3,0)
-// PoznanCentre.move(card4,0)
-// PoznanCentre.move(card8,0)
+PoznanCentre.move(card5,0)
+PoznanCentre.move(card6,0)
+PoznanCentre.move(card7,0)
+PoznanCentre.move(card8,0)
 
 console.log("=========================")
 console.log(PoznanCentre.cardsInAllZones())
@@ -171,8 +171,16 @@ console.log("card currentZone "+card4.currentZone.name)
 // console.log(card4.getZone().name)
 // console.log(card8.getZone().name)
 PoznanCentre.move(card4,2)
-// PoznanCentre.move(card4,2)
-// PoznanCentre.move(card8,5)
+PoznanCentre.move(card5,2)
+PoznanCentre.move(card6,5)
+PoznanCentre.move(card7,5)
+PoznanCentre.move(card8,1)
+
+console.log("=========================")
+console.log(PoznanCentre.cardsInAllZones())
+console.log("card currentZone "+card4.currentZone.name)
+PoznanCentre.move(card4,7)
+
 
 console.log("=========================")
 console.log(PoznanCentre.cardsInAllZones())

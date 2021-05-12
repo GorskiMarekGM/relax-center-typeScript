@@ -34,9 +34,9 @@ var RelaxSite = /** @class */ (function () {
                 var singleZone = _this.zones[index];
                 var cards = singleZone.cards;
                 // console.log("im at first for")
-                for (var index2 = 0; index2 < _this.cards.length; index2++) {
+                for (var index2 = 0; index2 < cards.length; index2++) {
                     // console.log("im at sec for")
-                    var singleCard = _this.cards[index2];
+                    var singleCard = cards[index2];
                     if (singleCard.getId() == cardId) {
                         // console.log("im at if")
                         return singleZone;
@@ -55,7 +55,7 @@ var RelaxSite = /** @class */ (function () {
             var door = _this.getDoors(doorNumber);
             var cardDestination = door.getDestination();
             // console.log("this.findCard(cardToMove.getId())")
-            console.log(_this.findCard(cardToMove.getId()));
+            // console.log(this.findCard(cardToMove.getId()))
             var cardOrigin = _this.findCard(cardToMove.getId());
             // console.log("Can i move throught doors: "+this.canMove(cardToMove,door))
             if (_this.canMove(cardToMove, door)) {
@@ -80,8 +80,8 @@ var RelaxSite = /** @class */ (function () {
             var ratingCard = card.getRating();
             var cardZone = card.getZone();
             // console.log("cardZone"+cardZone)
-            console.log("cardZone" + cardZone.name);
-            console.log("door.getSource()" + door.getSource().name);
+            // console.log("cardZone"+cardZone.name)
+            // console.log("door.getSource()"+door.getSource().name)
             // console.log("im in canMove")
             if (doorDestination.isFull()) {
                 // console.log("Im in first if")

@@ -120,3 +120,4 @@ The project should display the qualities associated with clean code and good des
 </li>
 </ul>
 
+![](https://github.com/GorskiMarekGM/relax-center-typeScript/blob/master/relaxsite.png?raw=true)
